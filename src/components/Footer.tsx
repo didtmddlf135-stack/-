@@ -21,7 +21,7 @@ export function Footer() {
 
           <div className="space-y-6">
             <h3 className="text-lg font-bold">서비스안내</h3>
-            <ul className="space-y-3 text-sm text-slate-400">
+            <ul className="space-y-3 text-sm text-slate-400" translate="no">
               <li><Link to="/commercial-cleaning" className="hover:text-blue-400 transition-colors">상업공간 청소</Link></li>
               <li><Link to="/regular-cleaning" className="hover:text-blue-400 transition-colors">상업공간 정기청소</Link></li>
               <li><Link to="/move-in-cleaning" className="hover:text-blue-400 transition-colors">입주·이사청소</Link></li>

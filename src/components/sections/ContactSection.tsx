@@ -125,7 +125,7 @@ export function ContactSection() {
 
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-slate-700">청소 종류</label>
-                  <Select name="serviceType" required>
+                  <Select name="serviceType" required translate="no">
                     <option value="">청소 종류를 선택하세요</option>
                     <option value="office">사무실 청소</option>
                     <option value="hospital">병원 청소</option>

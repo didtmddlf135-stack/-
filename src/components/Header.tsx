@@ -37,16 +37,16 @@ export function Header() {
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
           {NAV_ITEMS.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-blue-600",
-                location.pathname === item.path ? "text-blue-600" : "text-gray-600"
-              )}
-            >
-              {item.name}
-            </Link>
+              <Link
+                key={item.path}
+                to={item.path}
+                className={cn(
+                  "text-sm font-medium transition-colors hover:text-blue-600",
+                  location.pathname === item.path ? "text-blue-600" : "text-gray-600"
+                )}
+              >
+                <span translate="no">{item.name}</span>
+              </Link>
           ))}
           <a
             href="tel:1660-4336"
@@ -77,19 +77,19 @@ export function Header() {
           >
             <div className="flex flex-col gap-1 p-4">
               {NAV_ITEMS.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setIsOpen(false)}
-                  className={cn(
-                    "rounded-lg px-4 py-3 text-sm font-medium transition-colors",
-                    location.pathname === item.path
-                      ? "bg-blue-50 text-blue-600"
-                      : "text-gray-600 hover:bg-gray-50"
-                  )}
-                >
-                  {item.name}
-                </Link>
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setIsOpen(false)}
+                    className={cn(
+                      "rounded-lg px-4 py-3 text-sm font-medium transition-colors",
+                      location.pathname === item.path
+                        ? "bg-blue-50 text-blue-600"
+                        : "text-gray-600 hover:bg-gray-50"
+                    )}
+                  >
+                    <span translate="no">{item.name}</span>
+                  </Link>
               ))}
               <a
                 href="tel:1660-4336"

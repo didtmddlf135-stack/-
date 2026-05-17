@@ -44,6 +44,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-8 text-lg text-slate-300 leading-relaxed max-w-xl"
+            translate="no"
           >
             김포 사무실청소 · 병원청소 · 학원청소 · 상가청소 전문 <br />
             정기관리부터 입주청소까지 믿고 맡기는 미소클린 김포점
