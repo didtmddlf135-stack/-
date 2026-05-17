@@ -1,0 +1,69 @@
+{
+  "entities": {
+    "Inquiry": {
+      "title": "Estimate Inquiry",
+      "description": "Customer requests for cleaning estimates",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Customer name" },
+        "contact": { "type": "string", "description": "Phone number" },
+        "serviceType": {
+          "type": "string",
+          "enum": ["office", "hospital", "academy", "store", "movein", "construction", "aircon"],
+          "description": "Type of cleaning service requested"
+        },
+        "address": { "type": "string", "description": "Location (City/District/Dong)" },
+        "areaSize": { "type": "string", "description": "Size in pyung or square meters" },
+        "preferredDate": { "type": "string", "description": "Desired cleaning date" },
+        "details": { "type": "string", "description": "Additional requirements" },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "in-progress", "completed"],
+          "description": "Status of the inquiry"
+        },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["name", "contact", "serviceType", "address", "areaSize", "status", "createdAt"]
+    },
+    "Portfolio": {
+      "title": "Portfolio Work",
+      "description": "Showcase of cleaning work performed",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Project title" },
+        "description": { "type": "string", "description": "Project details" },
+        "beforeImageUrl": { "type": "string", "description": "Image before cleaning" },
+        "afterImageUrl": { "type": "string", "description": "Image after cleaning" },
+        "category": { "type": "string", "description": "Cleaning category" },
+        "region": { "type": "string", "description": "Region tag" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["title", "description", "afterImageUrl", "category", "createdAt"]
+    },
+    "Notice": {
+      "title": "Announcement",
+      "description": "General announcements or notices",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Notice title" },
+        "content": { "type": "string", "description": "Notice content" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" }
+      },
+      "required": ["title", "content", "createdAt"]
+    }
+  },
+  "firestore": {
+    "inquiries": {
+      "schema": "Inquiry",
+      "description": "Collection of estimate inquiries from customers"
+    },
+    "portfolios": {
+      "schema": "Portfolio",
+      "description": "Collection of cleaning work showcase items"
+    },
+    "notices": {
+      "schema": "Notice",
+      "description": "Collection of site announcements"
+    }
+  }
+}

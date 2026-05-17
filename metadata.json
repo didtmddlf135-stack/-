@@ -1,0 +1,6 @@
+{
+  "name": "미소클린 김포점 | 김포 상업공간 청소 전문",
+  "description": "사무실, 병원, 학원, 상가 전문 정기청소부터 입주청소까지 한번에. 김포지역 최고의 청소 솔루션.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

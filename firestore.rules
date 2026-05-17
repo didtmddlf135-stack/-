@@ -1,0 +1,85 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isEmailVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isAdmin() {
+      // For this app, we consider the primary user email as admin
+      // In production, you would use a dedicated 'admins' collection or custom claims
+      return isEmailVerified() && request.auth.token.email == 'didtmddlf135@gmail.com';
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // --- Inquiries ---
+    match /inquiries/{inquiryId} {
+      function isValidInquiry(data) {
+        return data.keys().hasAll(['name', 'contact', 'serviceType', 'address', 'areaSize', 'status', 'createdAt'])
+          && data.name is string && data.name.size() > 0 && data.name.size() <= 100
+          && data.contact is string && data.contact.size() > 0 && data.contact.size() <= 50
+          && data.serviceType in ['office', 'hospital', 'academy', 'store', 'movein', 'construction', 'aircon']
+          && data.address is string && data.address.size() <= 200
+          && data.areaSize is string && data.areaSize.size() <= 20
+          && data.status in ['pending', 'in-progress', 'completed']
+          && data.createdAt == request.time;
+      }
+
+      allow create: if isValidInquiry(incoming());
+      allow read, list, update, delete: if isAdmin();
+    }
+
+    // --- Portfolios ---
+    match /portfolios/{portfolioId} {
+      function isValidPortfolio(data) {
+        return data.keys().hasAll(['title', 'description', 'afterImageUrl', 'category', 'createdAt'])
+          && data.title is string && data.title.size() > 0 && data.title.size() <= 200
+          && data.description is string && data.description.size() <= 2000
+          && data.afterImageUrl is string && data.afterImageUrl.size() <= 1000
+          && data.category is string && data.category.size() <= 50
+          && data.createdAt == request.time;
+      }
+
+      allow read, list: if true;
+      allow create: if isAdmin() && isValidPortfolio(incoming());
+      allow update: if isAdmin() && isValidPortfolio(incoming());
+      allow delete: if isAdmin();
+    }
+
+    // --- Notices ---
+    match /notices/{noticeId} {
+      function isValidNotice(data) {
+        return data.keys().hasAll(['title', 'content', 'createdAt'])
+          && data.title is string && data.title.size() > 0 && data.title.size() <= 200
+          && data.content is string && data.content.size() <= 10000
+          && data.createdAt == request.time;
+      }
+
+      allow read, list: if true;
+      allow create: if isAdmin() && isValidNotice(incoming());
+      allow update: if isAdmin() && isValidNotice(incoming());
+      allow delete: if isAdmin();
+    }
+  }
+}
